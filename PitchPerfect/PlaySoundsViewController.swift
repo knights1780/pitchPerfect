@@ -42,10 +42,13 @@ class PlaySoundsViewController: UIViewController {
             playSound(pitch: 1000)
         case .lowPitch:
             playSound(pitch: -1000)
+        case .echo:
+            playSound(echo: true)
         case .reverb:
-            playSound(reverb:true)
-        default:
-            playSound(rate: 1.0)
+            playSound(reverb: true)
+        //No default conditions
+//        default:
+//            playSound(rate: 1.0)
         }
         configureUI(.playing)
     }
