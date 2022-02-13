@@ -37,9 +37,10 @@ class RecordSoundsViewController: UIViewController ,AVAudioRecorderDelegate{
     
     @IBAction func recordAudio(_ sender: Any) {
         print("record button was pressed")
-        recordLabel.text = "Recording in Progress"
-        stopRecordingButton.isEnabled = true
-        recordButton.isEnabled = false
+        self.configueUI(true)
+//        recordLabel.text = "Recording in Progress"
+//        stopRecordingButton.isEnabled = true
+//        recordButton.isEnabled = false
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
         let recordingName = "recordedVoice.wav"
@@ -58,9 +59,10 @@ class RecordSoundsViewController: UIViewController ,AVAudioRecorderDelegate{
     
     @IBAction func stopRecording(_ sender: Any) {
         print("stop recording button was pressed")
-        recordButton.isEnabled = true
-        stopRecordingButton.isEnabled = false
-        recordLabel.text = "Tap to Record"
+        self.configueUI(false)
+//        recordButton.isEnabled = true
+//        stopRecordingButton.isEnabled = false
+//        recordLabel.text = "Tap to Record"
         
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
@@ -81,6 +83,11 @@ class RecordSoundsViewController: UIViewController ,AVAudioRecorderDelegate{
             let recordedAudioURL = sender as! URL
             playSoundsVC.recordedAudioURL = recordedAudioURL
         }
+    }
+    func configueUI(_ isRecording: Bool){
+        stopRecordingButton.isEnabled = isRecording
+        recordButton.isEnabled = !isRecording
+        recordLabel.text = isRecording ? "Recording in Progress" : "Tap to Record"
     }
 }
 
